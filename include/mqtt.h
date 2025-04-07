@@ -50,7 +50,7 @@ union mqtt_header {
 	} bits;
 };
 
-// Struct representing an MQTT CONNECT request
+// MQTT CONNECT request
 struct mqtt_connect {
 	union mqtt_header header; // MQTT header
 	union {
@@ -75,7 +75,7 @@ struct mqtt_connect {
 	};
 };
 
-// Struct representing an MQTT CONNAKT response
+// MQTT CONNAKT response
 struct mqtt_connakt {
 	union mqtt_header header; // MQTT Header
 	union {
@@ -88,7 +88,7 @@ struct mqtt_connakt {
 	};
 };
 
-// Struct reprenting an MQTT SUBSCRIBE request
+// MQTT SUBSCRIBE request
 struct mqtt_subscribe {
 	union mqtt_header header;
 	unsigned short pkt_id; // Package id
@@ -100,7 +100,7 @@ struct mqtt_subscribe {
 	} *tuples;
 };
 
-// Struct repesentin an MQTT UNSUBSCRIBE request
+// MQTT UNSUBSCRIBE request
 struct mqtt_unsubscribe {
 	union mqtt_header header;
 	unsigned short pkt_id; // Package id
@@ -110,4 +110,29 @@ struct mqtt_unsubscribe {
 		unsigned char *topic; // Topic String
 	} *tuples;
 };
+
+// Packet definition for SUBSCRIBE and PUBLISH
+struct mqtt_suback {
+	union mqtt_header header;
+	unsigned short pkt_id; // Package id
+	unsigned short rcslen; // Return Code String length
+	unsigned char *rcs; // Return Code String
+};
+
+// MQTT PUBLISH request
+struct mqtt_publish {
+	union mqtt_header header;
+	unsigned short pkt_id; // Package id
+	unsigned short topiclen; // Topic String length
+	unsigned char *topic; // Topic String
+	unsigned short payloadlen; // Payload String length
+	unsigned char *payload; // Payload String
+};
+
+// Generic MQTT packet
+struct mqtt_ack {
+	union mqtt_header header;
+	unsigned short pkt_id; // Package id
+};
+
 #endif // MQTT_H_
