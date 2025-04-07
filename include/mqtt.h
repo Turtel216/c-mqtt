@@ -3,7 +3,7 @@
 #ifndef MQTT_H_
 #define MQTT_H_
 
-#include <cstddef>
+#include <stddef.h>
 #include <stdio.h>
 
 // Fixed size ot MQTT fixed header

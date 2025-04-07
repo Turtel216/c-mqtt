@@ -77,12 +77,12 @@ password = secret
 ```
 c-mqtt/
 ├── src/
-│   ├── broker.c
-│   ├── client.c
-│   ├── mqtt_parser.c
+│   ├── mqtt.c
+│   ├── pack.c
 │   └── ...
 ├── include/
-│   └── mqtt.h
+│   ├── mqtt.h
+│   ├── pack.h
 ├── tests/
 ├── config/
 ├── CMakeLists.txt

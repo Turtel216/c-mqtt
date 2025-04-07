@@ -30,8 +30,8 @@ endif()
 
 # Broker source files
 file(GLOB_RECURSE BROKER_SRC CONFIGURE_DEPENDS src/*.c)
-add_executable(mqtt_broker ${BROKER_SRC})
-target_include_directories(mqtt_broker PRIVATE src)
+add_executable(cmqtt ${BROKER_SRC})
+target_include_directories(cmqtt PRIVATE src)
 
 # target_link_libraries(mqtt_broker PRIVATE OpenSSL::SSL)
 
