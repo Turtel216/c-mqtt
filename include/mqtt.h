@@ -1,6 +1,9 @@
+// The MQTT module defines utilities for handling MQTT communications
+
 #ifndef MQTT_H_
 #define MQTT_H_
 
+#include <cstddef>
 #include <stdio.h>
 
 // Fixed size ot MQTT fixed header
@@ -75,8 +78,8 @@ struct mqtt_connect {
 	};
 };
 
-// MQTT CONNAKT response
-struct mqtt_connakt {
+// MQTT CONNACK response
+struct mqtt_connack {
 	union mqtt_header header; // MQTT Header
 	union {
 		unsigned char byte;
@@ -164,5 +167,31 @@ union mqtt_packet {
 	struct mqtt_subscribe subscribe;
 	struct mqtt_unsubscribe unsubscribe;
 };
+
+// Returns the length of an encoded mqtt byte stream
+int mqtt_encode_length(unsigned char *, size_t);
+// Returns the length of an decoded mqtt byte stream
+unsigned long long mqtt_decode_length(const unsigned char **);
+// Marshals an mqtt packet
+int unpack_mqtt_packet(const union mqtt_packet *, unsigned);
+// Unmarshals an mqtt packet
+unsigned char *packet_mqtt_packet(const union mqtt_packaet *, unsigned);
+
+// Utility function that returns the mqtt packet header
+union mqtt_header *mqtt_packet_header(unsigned char);
+// Utility function that returns the mqtt packet ACT
+struct mqtt_ack *mqtt_packet_ack(unsigned char, unsigned short);
+// Utility function that returns an mqtt CONNACK response
+struct mqtt_connack *mqtt_packet_connack(unsigned char, unsigned char,
+					 unsigned char);
+// Utility function that returns an mqtt SUBACK request
+struct mqtt_suback *mqtt_packet_suback(unsigned char, unsigned short,
+				       unsigned char *, unsigned short);
+// Utility function that returns an mqtt  request
+struct mqtt_publish *mqtt_packet_publish(unsigned char, unsigned short, size_t,
+					 unsigned char *, size_t,
+					 unsigned char *);
+// Utility function that releases an mqtt packet and frees up its memory
+void mqtt_packet_release(union mqtt_packet *, unsigned);
 
 #endif // MQTT_H_
