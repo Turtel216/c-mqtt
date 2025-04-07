@@ -1,8 +1,6 @@
 #ifndef MQTT_H_
 #define MQTT_H_
 
-//TODO: MQTT Subscribe
-
 #include <stdio.h>
 
 // Fixed size ot MQTT fixed header
@@ -77,8 +75,8 @@ struct mqtt_connect {
 	};
 };
 
-// Struct representing an MQTT CONNACT response
-struct mqtt_connack {
+// Struct representing an MQTT CONNAKT response
+struct mqtt_connakt {
 	union mqtt_header header; // MQTT Header
 	union {
 		unsigned char byte;
@@ -86,7 +84,30 @@ struct mqtt_connack {
 			unsigned session_present : 1;
 			unsigned reserved : 2;
 		} bits;
-		unsigned char rc;
-	}
+		unsigned char rc; // Return Code
+	};
+};
+
+// Struct reprenting an MQTT SUBSCRIBE request
+struct mqtt_subscribe {
+	union mqtt_header header;
+	unsigned short pkt_id; // Package id
+	unsigned short tuples_len;
+	struct {
+		unsigned short topic_len; // Length of topic string
+		unsigned char *topic; // Topic String
+		unsigned qos;
+	} *tuples;
+};
+
+// Struct repesentin an MQTT UNSUBSCRIBE request
+struct mqtt_unsubscribe {
+	union mqtt_header header;
+	unsigned short pkt_id; // Package id
+	unsigned short tuples_len;
+	struct {
+		unsigned short topic_len; // Length of topic string
+		unsigned char *topic; // Topic String
+	} *tuples;
 };
 #endif // MQTT_H_
