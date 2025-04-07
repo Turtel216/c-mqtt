@@ -135,4 +135,34 @@ struct mqtt_ack {
 	unsigned short pkt_id; // Package id
 };
 
+// ACK packets for:
+// PUBACK
+typedef struct mqtt_ack mqtt_puback;
+// PUBREC
+typedef struct mqtt_ack mqtt_pubrec;
+// PUBREL
+typedef struct mqtt_ack mqtt_pubrel;
+// PUBCOMP
+typedef struct mqtt_ack mqtt_pubcomp;
+// UNSUBACK
+typedef struct mqtt_ack mqtt_unsuback;
+// PINGREQ
+typedef union mqtt_header mqtt_pingreq;
+// PINGRESP
+typedef union mqtt_header mqtt_pingresp;
+// DISCONNECT
+typedef union mqtt_header mqtt_disconnect;
+
+// MQTT packet
+union mqtt_packet {
+	struct mqtt_ack ack;
+	union mqtt_header header;
+	struct mqtt_connect connect;
+	struct mqtt_connack connack;
+	struct mqtt_suback suback;
+	struct mqtt_publish publish;
+	struct mqtt_subscribe subscribe;
+	struct mqtt_unsubscribe unsubscribe;
+};
+
 #endif // MQTT_H_
