@@ -1,6 +1,8 @@
 #ifndef MQTT_H_
 #define MQTT_H_
 
+//TODO: MQTT Subscribe
+
 #include <stdio.h>
 
 // Fixed size ot MQTT fixed header
