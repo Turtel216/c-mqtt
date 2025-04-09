@@ -3,16 +3,6 @@
 #include <arpa/inet.h>
 #include "../include/pack.h"
 
-uint8_t unpack_u8(const uint8_t **);
-uint16_t unpack_u16(const uint8_t **);
-uint32_t unpack_u32(const uint8_t **);
-uint8_t *unpack_bytes(const uint8_t **, size_t, uint8_t *);
-uint16_t unpack_string16(uint8_t **buf, uint8_t **dest);
-void pack_u8(uint8_t **, uint8_t);
-void pack_u16(uint8_t **, uint16_t);
-void pack_u32(uint8_t **, uint32_t);
-void pack_bytes(uint8_t **, uint8_t *);
-
 // Converts bytes to uint8
 uint8_t unpack_u8(const uint8_t **buf)
 {
@@ -51,9 +41,9 @@ uint8_t *unpack_bytes(const uint8_t **buf, size_t len, uint8_t *str)
 // Unpack a string prefixed by its length as a uint18 value
 uint16_t unpack_string16(uint8_t **buf, uint8_t **dest)
 {
-	uint16_t len = unpack_u16(buf);
+	uint16_t len = unpack_u16((const uint8_t **)buf);
 	*dest = malloc(len + 1);
-	*dest = unpack_bytes(buf, len, *dest);
+	*dest = unpack_bytes((const uint8_t **)buf, len, *dest);
 	return len;
 }
 
