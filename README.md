@@ -10,7 +10,8 @@
 - 🗂️ Topic-based publish/subscribe mechanism
 - 🔒 Optional username/password authentication
 - 🧪 Lightweight and extensible design
-- 🖥️ Built-in CLI for debugging and monitoring
+<!-- 🖥️ Built-in CLI for debugging and monitoring
+-->
 
 ## 📦 Getting Started
 
